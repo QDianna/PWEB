@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: project
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+  jpa:
+    properties:
+      hibernate:
+        default_schema: project
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show-sql: true
+        ddl-auto: none
+    open-in-view: false
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    validate-on-migrate: false
+    table: project_schema_version
+    baseline-version: 0
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  mail:
+    host: smtp.mailtrap.io
+    port: 2525
+    username: f274a84303d67d
+    password: bf184097624442
+    protocol: smtp
+    tls: true
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+vars:
+  security:
+    enable: true
+
+server:
+  port: 8090
+
+token:
+  ttl: 3600000
+  secret: "https://www.youtube.com/watch?v=VBUMYOYJISc"
+
+admin:
+  username: admin
+  email: admin@admin.com
+  password: admin
+
+
+
