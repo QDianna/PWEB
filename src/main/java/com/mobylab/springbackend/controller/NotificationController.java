@@ -32,11 +32,11 @@ public class NotificationController  implements SecuredRestController {
         return ResponseEntity.ok(notificationService.getUnsentNotificationsForCurrentUser());
     }
 
-    @GetMapping("/reminder_notifs_by-user")
+    @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
-    public ResponseEntity<List<NotificationDto>> getReminderNotifsByUser(@RequestParam UUID userId) {
-        return ResponseEntity.ok(notificationService.getReminderNotifications(userId));
+    public ResponseEntity<Void> deleteSentNotification(@PathVariable UUID id) {
+        notificationService.deleteSentNotification(id);
+        return ResponseEntity.noContent().build();
     }
-
 
 }

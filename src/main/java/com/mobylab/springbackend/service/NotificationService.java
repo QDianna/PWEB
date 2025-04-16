@@ -6,6 +6,7 @@ import com.mobylab.springbackend.repository.UserRepository;
 import com.mobylab.springbackend.repository.NotificationRepository;
 import com.mobylab.springbackend.service.dto.NotificationDto;
 import com.mobylab.springbackend.exception.NotFoundException;
+import com.mobylab.springbackend.exception.ConflictActionException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.UUID;
@@ -42,29 +43,37 @@ public class NotificationService extends BasicsService {
                 .collect(Collectors.toList());
     }
 
-    public List<NotificationDto> getReminderNotifications(UUID userId) {
-        userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException("User not found"));
-
-        List<Notification> notifications = notificationRepository.testByReminder(userId);
-
-        return notifications.stream()
-                .map(this::mapToNotificationDto)
-                .collect(Collectors.toList());
-    }
-
-
     public List<NotificationDto> getUnsentNotificationsForCurrentUser() {
         User user = getCurrentUser();
 
         List<Notification> notifications = notificationRepository.findUnsentNotificationsForUser(user.getId());
 
+        // TODO: needs more checking for when to send the notif
         notifications.forEach(n -> n.setIsSent(true));
         notificationRepository.saveAll(notifications);
 
         return notifications.stream()
                 .map(this::mapToNotificationDto)
                 .collect(Collectors.toList());
+    }
+
+    public void deleteSentNotification(UUID notificationId) {
+        User currentUser = getCurrentUser();
+
+        Notification notification = notificationRepository.findById(notificationId)
+                .orElseThrow(() -> new NotFoundException("Notification not found"));
+
+        if (!notification.getIsSent()) {
+                throw new ConflictActionException("Notification was not sent yet");
+        }
+
+        if (notification.getReminder() != null) {
+            checkOwnershipOrAdmin(notification.getReminder().getUser(), currentUser);
+        } else {
+            checkOwnershipOrAdmin(notification.getEvent().getUser(), currentUser);
+        }
+
+        notificationRepository.delete(notification);
     }
 
 }

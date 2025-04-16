@@ -22,8 +22,8 @@ public class Reminder {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @OneToMany(mappedBy = "reminder", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Notification> notifications;
+    @OneToOne(mappedBy = "reminder", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Notification notification;
 
     public UUID getId() {
         return id;

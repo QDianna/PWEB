@@ -20,11 +20,11 @@ public class Notification {
     @Column(name = "is_sent")
     private boolean isSent = false;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "event_id", referencedColumnName = "id")
     private Event event;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "reminder_id", referencedColumnName = "id")
     private Reminder reminder;
 

@@ -27,10 +27,4 @@ public interface NotificationRepository extends JpaRepository<Notification, UUID
     """)
     List<Notification> findUnsentNotificationsForUser(@Param("userId") UUID userId);
 
-    @Query("""
-        SELECT n FROM Notification n
-        WHERE n.reminder.user.id = :userId
-    """)
-    List<Notification> testByReminder(@Param("userId") UUID userId);
-
 }

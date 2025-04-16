@@ -55,4 +55,15 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorObject, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler({ConflictActionException.class})
+    public ResponseEntity<ErrorObject> handleIllegalState(RuntimeException ex, WebRequest request) {
+        ErrorObject errorObject = new ErrorObject();
+
+        errorObject
+                .setStatusCode(HttpStatus.CONFLICT.value())
+                .setMessage(ex.getMessage())
+                .setTimestamp(LocalDateTime.now());
+        return new ResponseEntity<>(errorObject, HttpStatus.CONFLICT);
+    }
+
 }
