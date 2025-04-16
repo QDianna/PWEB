@@ -45,6 +45,10 @@ public class TaskService extends BasicsService {
         if (dto.getContent() == null) {
             throw new BadRequestException("Task cannot be empty");
         }
+
+        if (dto.getTaskListId() == null) {
+            throw new BadRequestException("Task must be assigned to a taskList");
+        }
     }
 
     // admin only

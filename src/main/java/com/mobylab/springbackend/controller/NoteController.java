@@ -30,7 +30,7 @@ public class NoteController implements SecuredRestController {
     }
 
     // GET specific note by id (if owned)
-    @GetMapping("/{id}")
+    @GetMapping("/by-id/{id}")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<NoteDto> getNotesById(@PathVariable UUID id) {
         NoteDto note = noteService.getNoteById(id);
@@ -38,7 +38,7 @@ public class NoteController implements SecuredRestController {
     }
 
     // POST create new note for current user
-    @PostMapping
+    @PostMapping("/create_note")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<NoteDto> createNoteForCurrentUser(@RequestBody NoteDto noteDto) {
         NoteDto created = noteService.createNoteCurrentUser(noteDto);
@@ -46,7 +46,7 @@ public class NoteController implements SecuredRestController {
     }
 
     // PUT update note by id (if owned)
-    @PutMapping("/{id}")
+    @PutMapping("/update_note/{id}")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<NoteDto> updateNoteForCurrentUser(@PathVariable UUID id, @RequestBody NoteDto noteDto) {
         NoteDto updated = noteService.updateNoteById(id, noteDto);
@@ -54,7 +54,7 @@ public class NoteController implements SecuredRestController {
     }
 
     // DELETE note by id (if owned)
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete_note/{id}")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<Void> deleteNoteForCurrentUser(@PathVariable UUID id) {
         noteService.deleteNoteById(id);

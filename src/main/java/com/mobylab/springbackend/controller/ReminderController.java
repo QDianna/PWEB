@@ -30,7 +30,7 @@ public class ReminderController implements SecuredRestController {
     }
 
     // GET specific reminder by id (if owned)
-    @GetMapping("/{id}")
+    @GetMapping("/by-id/{id}")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<ReminderDto> getReminderById(@PathVariable UUID id) {
         ReminderDto reminder = reminderService.getReminderById(id);
@@ -38,7 +38,7 @@ public class ReminderController implements SecuredRestController {
     }
 
     // POST create new reminder for current user
-    @PostMapping
+    @PostMapping("/create_reminder")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<ReminderDto> createReminderForCurrentUser(@RequestBody ReminderDto reminderDto) {
         ReminderDto created = reminderService.createReminderCurrentUser(reminderDto);
@@ -46,7 +46,7 @@ public class ReminderController implements SecuredRestController {
     }
 
     // PUT update reminder by id (if owned)
-    @PutMapping("/{id}")
+    @PutMapping("/update_reminder/{id}")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<ReminderDto> updateReminderForCurrentUser(@PathVariable UUID id, @RequestBody ReminderDto reminderDto) {
         ReminderDto updated = reminderService.updateReminderById(id, reminderDto);
@@ -54,7 +54,7 @@ public class ReminderController implements SecuredRestController {
     }
 
     // DELETE reminder by id (if owned)
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete_reminder/{id}")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<Void> deleteReminderForCurrentUser(@PathVariable UUID id) {
         reminderService.deleteReminderById(id);

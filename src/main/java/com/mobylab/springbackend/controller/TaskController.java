@@ -36,7 +36,7 @@ public class TaskController implements SecuredRestController {
     }
 
     // GET specific task by ID (if owned)
-    @GetMapping("/{id}")
+    @GetMapping("/by-id/{id}")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<TaskDto> getTaskById(@PathVariable UUID id) {
         TaskDto task = taskService.getTaskById(id);
@@ -44,7 +44,7 @@ public class TaskController implements SecuredRestController {
     }
 
     // POST create task (must be assigned to a task list)
-    @PostMapping
+    @PostMapping("/create_task")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<TaskDto> createTask(@RequestBody TaskDto dto) {
         TaskDto created = taskService.createTask(dto);
@@ -52,7 +52,7 @@ public class TaskController implements SecuredRestController {
     }
 
     // PUT update task content
-    @PutMapping("/{id}")
+    @PutMapping("/update_task/{id}")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<TaskDto> updateTask(@PathVariable UUID id, @RequestBody TaskDto dto) {
         TaskDto updated = taskService.updateTask(id, dto);
@@ -60,7 +60,7 @@ public class TaskController implements SecuredRestController {
     }
 
     // DELETE task
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete_task/{id}")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<Void> deleteTask(@PathVariable UUID id) {
         taskService.deleteTask(id);

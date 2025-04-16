@@ -1,5 +1,7 @@
 package com.mobylab.springbackend.service;
 
+import com.mobylab.springbackend.entity.Event;
+import com.mobylab.springbackend.entity.Reminder;
 import com.mobylab.springbackend.entity.User;
 import com.mobylab.springbackend.entity.Notification;
 import com.mobylab.springbackend.repository.UserRepository;
@@ -69,8 +71,12 @@ public class NotificationService extends BasicsService {
 
         if (notification.getReminder() != null) {
             checkOwnershipOrAdmin(notification.getReminder().getUser(), currentUser);
+            Reminder reminder = notification.getReminder();
+            reminder.setNotification(null);
         } else {
             checkOwnershipOrAdmin(notification.getEvent().getUser(), currentUser);
+            Event event = notification.getEvent();
+            event.setNotification(null);
         }
 
         notificationRepository.delete(notification);

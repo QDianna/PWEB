@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/tasklists")
+@RequestMapping("/taskLists")
 public class TaskListController implements SecuredRestController {
 
     private final TaskListService taskListService;
@@ -20,7 +20,7 @@ public class TaskListController implements SecuredRestController {
     }
 
     // GET all task lists for current user
-    @GetMapping("/my_lists")
+    @GetMapping("/my_taskLists")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<List<TaskListDto>> getTaskListsForCurrentUser() {
         List<TaskListDto> lists = taskListService.getTaskListsCurrentUser();
@@ -28,7 +28,7 @@ public class TaskListController implements SecuredRestController {
     }
 
     // GET specific task list by ID (if owned)
-    @GetMapping("/{id}")
+    @GetMapping("/by-id/{id}")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<TaskListDto> getTaskListById(@PathVariable UUID id) {
         TaskListDto dto = taskListService.getTaskListById(id);
@@ -36,7 +36,7 @@ public class TaskListController implements SecuredRestController {
     }
 
     // POST create task list for current user
-    @PostMapping
+    @PostMapping("/create_taskList")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<TaskListDto> createTaskListForCurrentUser(@RequestBody TaskListDto dto) {
         TaskListDto created = taskListService.createTaskListForCurrentUser(dto);
@@ -44,7 +44,7 @@ public class TaskListController implements SecuredRestController {
     }
 
     // PUT update task list title (if owned)
-    @PutMapping("/{id}")
+    @PutMapping("/modify_taskList/{id}")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<TaskListDto> updateTaskList(@PathVariable UUID id, @RequestBody TaskListDto dto) {
         TaskListDto updated = taskListService.updateTaskList(id, dto);
@@ -52,14 +52,14 @@ public class TaskListController implements SecuredRestController {
     }
 
     // DELETE task list (if owned)
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete_taskList/{id}")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<Void> deleteTaskList(@PathVariable UUID id) {
         taskListService.deleteTaskList(id);
         return ResponseEntity.noContent().build();
     }
 
-    ////////////////////////// ADMIN ONLY //////////////////////////
+    ////////////////////////////////////// ADMIN ONLY CONTROLLERS //////////////////////////////////////
 
     // GET task lists by user ID (admin only)
     @GetMapping("/by-user")
@@ -77,4 +77,5 @@ public class TaskListController implements SecuredRestController {
         TaskListDto created = taskListService.createTaskListForUserId(dto, userId);
         return ResponseEntity.status(201).body(created);
     }
+
 }

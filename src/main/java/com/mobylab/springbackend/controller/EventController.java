@@ -30,7 +30,7 @@ public class EventController implements SecuredRestController {
     }
 
     // GET specific event by id (if owned)
-    @GetMapping("/{id}")
+    @GetMapping("/by-id/{id}")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<EventDto> getEventById(@PathVariable UUID id) {
         EventDto event = eventService.getEventById(id);
@@ -38,7 +38,7 @@ public class EventController implements SecuredRestController {
     }
 
     // POST create new event for current user
-    @PostMapping
+    @PostMapping("/create_event")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<EventDto> createEventForCurrentUser(@RequestBody EventDto eventDto) {
         EventDto created = eventService.createEventCurrentUser(eventDto);
@@ -46,7 +46,7 @@ public class EventController implements SecuredRestController {
     }
 
     // PUT update event by id (if owned)
-    @PutMapping("/{id}")
+    @PutMapping("/modify_event/{id}")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<EventDto> updateEventForCurrentUser(@PathVariable UUID id, @RequestBody EventDto eventDto) {
         EventDto updated = eventService.updateEventById(id, eventDto);
@@ -54,7 +54,7 @@ public class EventController implements SecuredRestController {
     }
 
     // DELETE event by id (if owned)
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete_event/{id}")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<Void> deleteEventForCurrentUser(@PathVariable UUID id) {
         eventService.deleteEventById(id);

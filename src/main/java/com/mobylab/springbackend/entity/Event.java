@@ -28,6 +28,10 @@ public class Event {
     @OneToOne(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private Notification notification;
 
+    public void setNotification(Notification notification) {
+        this.notification = notification;
+    }
+
     public UUID getId() {
         return id;
     }

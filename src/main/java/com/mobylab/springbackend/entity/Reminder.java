@@ -25,6 +25,10 @@ public class Reminder {
     @OneToOne(mappedBy = "reminder", cascade = CascadeType.ALL, orphanRemoval = true)
     private Notification notification;
 
+    public void setNotification(Notification notification) {
+        this.notification = notification;
+    }
+
     public UUID getId() {
         return id;
     }

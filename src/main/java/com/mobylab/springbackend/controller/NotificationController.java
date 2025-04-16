@@ -32,7 +32,7 @@ public class NotificationController  implements SecuredRestController {
         return ResponseEntity.ok(notificationService.getUnsentNotificationsForCurrentUser());
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete_notification/{id}")
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public ResponseEntity<Void> deleteSentNotification(@PathVariable UUID id) {
         notificationService.deleteSentNotification(id);
