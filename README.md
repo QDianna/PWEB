@@ -19,7 +19,7 @@ Proiect realizat pentru cursul **Programare Web**, folosind **Spring Boot** și 
 - Liquibase/Flyway (migrări)
 - Maven
 
-## How to run
+## Setup
 
 To start working with the backend install docker and docker compose from https://docs.docker.com/engine/install/ and enter the command below to launch the Postgresql database while in the Deployment folder:
 
