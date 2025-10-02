@@ -12,9 +12,9 @@ Proiect realizat pentru cursul **Programare Web**, folosind **Spring Boot** și 
 - **Error handling** standardizat (coduri de eroare)
 - **Notificări și emailuri** pentru remindere și taskuri
 - Documentație API prin **Swagger/OpenAPI**
-
-## Tehnologii
-- Java + Spring Boot
+ 
+## Tehnologii  
+- Java + Spring Boot 
 - JPA/Hibernate (Repository Pattern)
 - PostgreSQL + Docker Compose
 - Liquibase/Flyway (migrări)
