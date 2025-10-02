@@ -1,6 +1,7 @@
 # Organizer App – Spring Boot Backend
 
-O aplicație de organizare tip „all-in-one” care integrează funcționalități de **event, note, reminder, task, task list și notificări prin email**.  
+O aplicație de organizare tip „all-in-one” care integrează funcționalități de **event, note, reminder, task, task list și notificări prin email**.
+
 Proiect realizat pentru cursul **Programare Web**, folosind **Spring Boot** și **PostgreSQL**.
 
 ## Funcționalități
